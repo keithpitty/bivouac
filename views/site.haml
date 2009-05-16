@@ -1,11 +1,13 @@
 
-%h1= @site.domain
 
-= @site.directory
+Your repo is at:
 
-%a{:href => "http://#{@site.domain}.com", :title => 'Show'}
-  Go
-%p
+= @site.repo
+
+Your app is running at:
+
+%a{:href => @site.domain_name, :title => 'Show'}
+  = @site.domain_name
   
 %a{:href => '/', :title => 'Home'}
   Home

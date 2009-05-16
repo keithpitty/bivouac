@@ -9,7 +9,7 @@ set :branch, "production"
 set :deploy_via, :remote_cache
 
 set :application, "bivouac"
-set :deploy_to, "/home/bivouac/current/public"
+set :deploy_to, "/home/bivouac"
 
 role :app, "bivouac.com"
 role :web, "bivouac.com"

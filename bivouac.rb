@@ -2,15 +2,17 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'active_record'
+require 'helpers'
 
-SITE_ROOT = '/home/bivouac/apps'
+USER_NAME = 'bivouac'
+SITE_ROOT = '/home/#{USER_NAME}/apps'
 
 ActiveRecord::Base.establish_connection(
-   :adapter  => "mysql",
-   :host     => "localhost",
-   :username => "root",
-   :password => "",
-   :database => "bivouac"
+  :adapter  => "mysql",
+  :host     => "localhost",
+  :username => "root",
+  :password => "",
+  :database => "bivouac"
 )
 
 unless ActiveRecord::Base.connection.tables.include?('sites')
@@ -25,29 +27,13 @@ class Site < ActiveRecord::Base
   def directory
     File.join(SITE_ROOT, domain)
   end
-end
 
-helpers do
-
-  def write_vhost_conf
-    vhost = File.join(SITE_ROOT, domain, '.conf')
-    File.open(vhost, 'w') do |f|
-    end
+  def repo_name
+    'bivouac@bivouac.com:~/app/' + domain
   end
 
-  def init_repo(site)
-    directory = site.directory
-    Dir.chdir(directory)
-    `git init`
-  end
-
-  def add_post_commit(name)
-    post_commit = File.join(SITE_ROOT, domain, '.conf')
-    File.open(post_commit, 'w') do |f|
-      f << HERE__
-      #!/usr/env ruby
-      HERE
-    end
+  def domain_name
+    'http://' + domain
   end
 end
 
@@ -63,14 +49,17 @@ end
 get '/sites/create' do
   site = Site.new(params[:site])
   if domain_taken?(site.domain)
-    # TODO: display errors
-    back
+    @error = "Domain name already snaffled. Be more creative and try another!"
+    haml :site_new
   else
     if site.save!
+      cat_key(site)
+      init_repo(site)
+      #add_post_commit(site)
       redirect "/site/#{site.id}"
     else
-      # TODO: display errors
-      back
+      @error = "Couldn't save... something fucked up. Try again!"
+      haml :site_new
     end
   end
 end
@@ -81,6 +70,7 @@ get '/' do
 end
 
 private
+
 def domain_taken?(name)
   site = Site.find_by_domain(name)
   return !site.nil?
