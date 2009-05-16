@@ -3,7 +3,8 @@
 
 - @sites.each do |s|
   = s.name
+  <br/>
 
-%a
+%a{:href => '/sites/new', :title => 'New Site'}
   'New Site'
 

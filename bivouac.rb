@@ -40,6 +40,10 @@ helpers do
 
 end
 
+get '/sites/new' do
+  haml :site_new
+end
+
 get '/' do
   @sites = Site.all
   haml :index
