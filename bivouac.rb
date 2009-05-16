@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
-SITE_ROOT = '/var/www/bivouac/'
+SITE_ROOT = '/home/bivouac/apps'
 
 ActiveRecord::Base.establish_connection(
    :adapter  => "mysql",
@@ -23,27 +23,30 @@ end
 class Site < ActiveRecord::Base
   
   def directory
-    File.join(SITE_ROOT, name)
+    File.join(SITE_ROOT, domain)
+  end
+
+  def repo_name
+    'bivouac@bivouac.com:~/app/' + domain
+  end
+
+  def domain_name
+    'http://' + domain
   end
 
 end
 
 helpers do
 
-  def write_vhost_conf
-    vhost = File.join(SITE_ROOT, name, '.conf')
-    File.open(vhost, 'w') do |f|
-    end
-  end
-
   def init_repo(site)
     directory = site.directory
-    Dir.chdir(directory)
+    Dir.mkdir_p directory
+    Dir.chdir directory
     `git init`
   end
 
-  def add_post_commit(name)
-    post_commit = File.join('/var/www/bivouac/', name, 'post_commit_hook')
+  def add_post_commit(site)
+    post_commit = File.join('/var/www/bivouac/', site.name, '.git/hooks/post_commit_hook')
     File.open(post_commit, 'w') do |f|
       f << HERE__
       #!/usr/env ruby
@@ -51,8 +54,8 @@ helpers do
     end
   end
 
-  def restart_apache
-    # apachectl restart graceful?
+  def cat_key(site)
+    `cat #{site.ssh_public_key} >> ~/.ssh/authorized_keys`
   end
 
 end
@@ -71,6 +74,9 @@ get '/sites/create' do
   puts "#{params[:site]}"
   site = Site.new(params[:site])
   if site.save!
+    cat_key(site)
+    init_repo(site)
+    #add_post_commit(site)
     redirect "/site/#{site.id}"
   else
     # TODO: display errors
