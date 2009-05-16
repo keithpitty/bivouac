@@ -51,6 +51,17 @@ get '/sites/new' do
   haml :site_new
 end
 
+get '/sites/create' do
+  # TODO: complete
+  puts "/sites/create invoked..."
+  site = Site.new(:name => params[:name], :hostname => params[:hostname])
+  if site.save!
+    render "/site/#{site.id}"
+  else
+    # TODO finish
+  end
+end
+
 get '/' do
   @sites = Site.all
   haml :index
