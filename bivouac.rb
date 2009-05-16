@@ -43,15 +43,16 @@ helpers do
   end
 
   def add_post_commit(name)
-    post_commit = File.join('/var/www/bivouac/', name, '.conf')
+    post_commit = File.join('/var/www/bivouac/', name, 'post_commit_hook')
     File.open(post_commit, 'w') do |f|
+      f << HERE__
+      #!/usr/env ruby
+      HERE
     end
   end
 
-  def restart_app
-    post_commit = File.join('/var/www/bivouac/', name, '/tmp/restart.txt')
-    File.open(post_commit, 'w') do |f|
-    end
+  def restart_apache
+    # apachectl restart graceful?
   end
 
 end
