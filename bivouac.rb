@@ -3,6 +3,8 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
+SITE_ROOT = '/var/www/bivouac/'
+
 ActiveRecord::Base.establish_connection(
    :adapter  => "mysql",
    :host     => "localhost",
@@ -12,6 +14,10 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Site < ActiveRecord::Base
+
+  def directory
+    File.join(SITE_ROOT, name)
+  end
 
 end
 
