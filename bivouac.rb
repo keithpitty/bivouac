@@ -31,7 +31,7 @@ end
 helpers do
 
   def write_vhost_conf
-    vhost = File.join('/var/www/bivouac/', name, '.conf')
+    vhost = File.join(SITE_ROOT, name, '.conf')
     File.open(vhost, 'w') do |f|
     end
   end
@@ -43,13 +43,13 @@ helpers do
   end
 
   def add_post_commit(name)
-    post_commit = File.join('/var/www/bivouac/', name, '.conf')
+    post_commit = File.join(SITE_ROOT, name, '.conf')
     File.open(post_commit, 'w') do |f|
     end
   end
 
   def restart_app
-    post_commit = File.join('/var/www/bivouac/', name, '/tmp/restart.txt')
+    post_commit = File.join(SITE_ROOT, name, '/tmp/restart.txt')
     File.open(post_commit, 'w') do |f|
     end
   end
