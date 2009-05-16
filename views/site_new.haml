@@ -1,15 +1,15 @@
 %h1 New Site
 %form{:action => "/sites/create"}
-  %label{:for => "site_name"}
+  %label{:for => "name"}
     Site name:
-  %input{:id => "site_name", :type => "text"}
+  %input{:id => "name", :type => "text", :name => "site[name]"}
   %br
   %br
-  %label{:for => "site_hostname"}
+  %label{:for => "hostname"}
     Site host name:
-  %input{:id => "site_hostname", :type => "text"}
+  %input{:id => "hostname", :type => "text", :name => "site[hostname]", :size => 40}
   %br
   %br
-  %input{:id => "site_submit", :name => "submit", :type => "submit", :value => "Save"}
+  %input{:id => "submit", :name => "submit", :type => "submit", :value => "Save"}
 
 

@@ -64,13 +64,14 @@ get '/site/:id' do
 end
 
 get '/sites/create' do
-  # TODO: complete
   puts "/sites/create invoked..."
-  site = Site.new(:name => params[:name], :hostname => params[:hostname])
+  puts "#{params[:site]}"
+  site = Site.new(params[:site])
   if site.save!
-    render "/site/#{site.id}"
+    redirect "/"
   else
-    # TODO finish
+    # TODO: display errors
+    back
   end
 end
 
