@@ -69,14 +69,14 @@ end
 get '/sites/create' do
   site = Site.new(params[:site])
   if domain_taken?(site.domain)
-    # TODO: display errors
-    back
+    @error = "Domain name already snaffled. Be more creative and try another!"
+    haml :site_new
   else
     if site.save!
       redirect "/site/#{site.id}"
     else
-      # TODO: display errors
-      back
+      @error = "Couldn't save... something fucked up. Try again!"
+      haml :site_new
     end
   end
 end
