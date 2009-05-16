@@ -45,15 +45,3 @@ get '/' do
   haml :index
 end
 
-__END__
-
-@@ index
-
-%h1 Bivouac
-
-- @sites.each do |s|
-  = s.name
-
-%a
-  'New Site'
-
