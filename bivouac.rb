@@ -13,12 +13,17 @@ ActiveRecord::Base.establish_connection(
    :database => "bivouac"
 )
 
-class Site < ActiveRecord::Base
+unless ActiveRecord::Base.connection.tables.include?('sites')
+  puts "Creating sites table..."
+  ActiveRecord::Base.connection.create_table("sites") do |t|
+    t.string "name", "hostname"
+  end
+end
 
+class Site < ActiveRecord::Base
   def directory
     File.join(SITE_ROOT, name)
   end
-
 end
 
 helpers do
@@ -48,6 +53,17 @@ end
 
 get '/sites/new' do
   haml :site_new
+end
+
+get '/sites/create' do
+  # TODO: complete
+  puts "/sites/create invoked..."
+  site = Site.new(:name => params[:name], :hostname => params[:hostname])
+  if site.save!
+    render "/site/#{site.id}"
+  else
+    # TODO finish
+  end
 end
 
 get '/' do
