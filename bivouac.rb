@@ -54,7 +54,7 @@ get '/sites/create' do
     if site.save!
       cat_key(site)
       init_repo(site)
-      #add_post_commit(site)
+      add_post_commit(site)
       redirect "/site/#{site.id}"
     else
       @error = "Couldn't save... something fucked up. Try again!"
