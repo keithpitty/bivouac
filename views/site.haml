@@ -1,9 +1,9 @@
 
-%h1= @site.name
+%h1= @site.domain
 
 = @site.directory
 
-%a{:href => 'http://' + @site.hostname, :title => 'Show'}
+%a{:href => "http://#{@site.domain}.com", :title => 'Show'}
   Go
 %p
   
