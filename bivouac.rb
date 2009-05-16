@@ -11,8 +11,15 @@ ActiveRecord::Base.establish_connection(
    :database => "bivouac"
 )
 
-class Site < ActiveRecord::Base
+unless ActiveRecord::Base.connection.tables.include?('sites')
+  puts "Creating sites table..."
+  ActiveRecord::Base.connection.create_table("sites") do |t|
+    t.string "name", "hostname"
+  end
+end
 
+class Site < ActiveRecord::Base
+  
 end
 
 helpers do
