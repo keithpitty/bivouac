@@ -15,8 +15,7 @@ helpers do
   end
 
   def add_post_commit(name)
-    File.join('/var/www/bivouac/', name, '.conf'
-    F
+    File.join('/var/www/bivouac/', name, '.conf')
   end
 
   def restart_server
