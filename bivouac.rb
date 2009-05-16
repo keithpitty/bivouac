@@ -4,8 +4,8 @@ require 'haml'
 require 'active_record'
 require 'helpers'
 
-USER_NAME = 'bivouac'
-SITE_ROOT = '/home/#{USER_NAME}/apps'
+USER_NAME = 'martin'
+SITE_ROOT = "/#{ENV['HOME']}/apps"
 
 ActiveRecord::Base.establish_connection(
   :adapter  => "mysql",
@@ -29,8 +29,8 @@ class Site < ActiveRecord::Base
     File.join(SITE_ROOT, domain)
   end
 
-  def repo_name
-    'bivouac@bivouac.com:~/app/' + domain
+  def repo
+    "#{USER_NAME}@bivouac.com:~/app/" + domain + '.git'
   end
 
   def domain_name
@@ -57,7 +57,7 @@ get '/sites/create' do
     if site.save!
       cat_key(site)
       init_repo(site)
-      #add_post_commit(site)
+      add_post_commit(site)
       redirect "/site/#{site.id}"
     else
       @error = "Couldn't save... something fucked up. Try again!"
