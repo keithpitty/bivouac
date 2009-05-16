@@ -4,8 +4,7 @@ require 'haml'
 require 'active_record'
 require 'helpers'
 
-USER_NAME = 'bivouac'
-SITE_ROOT = '/home/#{USER_NAME}/apps'
+SITE_ROOT = '/home/bivouac/apps'
 
 ActiveRecord::Base.establish_connection(
   :adapter  => "mysql",

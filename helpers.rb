@@ -17,7 +17,7 @@ helpers do
   end
 
   def cat_key(site)
-    File.write("~/#{USER_NAME}/.ssh/authorized_keys", 'a') do |f|
+    File.write("~/.ssh/authorized_keys", 'a') do |f|
       f << site.authorized_keys
     end
   end
