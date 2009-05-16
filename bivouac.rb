@@ -2,26 +2,29 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'active_record'
+require 'helpers'
 
-SITE_ROOT = '/home/bivouac/apps'
+USER_NAME = 'bivouac'
+SITE_ROOT = '/home/#{USER_NAME}/apps'
 
 ActiveRecord::Base.establish_connection(
-   :adapter  => "mysql",
-   :host     => "localhost",
-   :username => "root",
-   :password => "",
-   :database => "bivouac"
+  :adapter  => "mysql",
+  :host     => "localhost",
+  :username => "root",
+  :password => "",
+  :database => "bivouac"
 )
 
 unless ActiveRecord::Base.connection.tables.include?('sites')
   puts "Creating sites table..."
   ActiveRecord::Base.connection.create_table("sites") do |t|
-    t.string "name", "hostname"
+    t.string "domain"
+    t.text "ssh_public_key"
   end
 end
 
 class Site < ActiveRecord::Base
-  
+
   def directory
     File.join(SITE_ROOT, domain)
   end
@@ -36,30 +39,6 @@ class Site < ActiveRecord::Base
 
 end
 
-helpers do
-
-  def init_repo(site)
-    directory = site.directory
-    Dir.mkdir_p directory
-    Dir.chdir directory
-    `git init`
-  end
-
-  def add_post_commit(site)
-    post_commit = File.join('/var/www/bivouac/', site.name, '.git/hooks/post_commit_hook')
-    File.open(post_commit, 'w') do |f|
-      f << HERE__
-      #!/usr/env ruby
-      HERE
-    end
-  end
-
-  def cat_key(site)
-    `cat #{site.ssh_public_key} >> ~/.ssh/authorized_keys`
-  end
-
-end
-
 get '/sites/new' do
   haml :site_new
 end
@@ -70,22 +49,32 @@ get '/site/:id' do
 end
 
 get '/sites/create' do
-  puts "/sites/create invoked..."
-  puts "#{params[:site]}"
   site = Site.new(params[:site])
-  if site.save!
-    cat_key(site)
-    init_repo(site)
-    #add_post_commit(site)
-    redirect "/site/#{site.id}"
-  else
+  if domain_taken?(site.domain)
     # TODO: display errors
-    back
+    redirect back
+  else
+    if site.save!
+      cat_key(site)
+      init_repo(site)
+      #add_post_commit(site)
+      redirect "/site/#{site.id}"
+    else
+      # TODO: display errors
+      redirect back
+    end
   end
 end
 
 get '/' do
   @sites = Site.all
   haml :index
+end
+
+private
+
+def domain_taken?(name)
+  site = Site.find_by_domain(name)
+  return !site.nil?
 end
 
