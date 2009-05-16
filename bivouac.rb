@@ -4,7 +4,7 @@ require 'haml'
 require 'active_record'
 require 'helpers'
 
-USER_NAME = 'martin'
+USER_NAME = 'bivouac'
 SITE_ROOT = "/#{ENV['HOME']}/apps"
 
 ActiveRecord::Base.establish_connection(
@@ -24,7 +24,6 @@ unless ActiveRecord::Base.connection.tables.include?('sites')
 end
 
 class Site < ActiveRecord::Base
-
   def directory
     File.join(SITE_ROOT, domain)
   end
@@ -36,7 +35,6 @@ class Site < ActiveRecord::Base
   def domain_name
     'http://' + domain
   end
-
 end
 
 get '/sites/new' do
