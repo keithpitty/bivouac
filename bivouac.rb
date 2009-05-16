@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
-SITE_ROOT = '/var/www/bivouac/'
+SITE_ROOT = '/home/bivouac/apps'
 
 ActiveRecord::Base.establish_connection(
    :adapter  => "mysql",
@@ -16,14 +16,15 @@ ActiveRecord::Base.establish_connection(
 unless ActiveRecord::Base.connection.tables.include?('sites')
   puts "Creating sites table..."
   ActiveRecord::Base.connection.create_table("sites") do |t|
-    t.string "name", "hostname"
+    t.string "domain"
+    t.text "ssh_public_key"
   end
 end
 
 class Site < ActiveRecord::Base
   
   def directory
-    File.join(SITE_ROOT, name)
+    File.join(SITE_ROOT, domain)
   end
 
 end
@@ -31,7 +32,7 @@ end
 helpers do
 
   def write_vhost_conf
-    vhost = File.join(SITE_ROOT, name, '.conf')
+    vhost = File.join(SITE_ROOT, domain, '.conf')
     File.open(vhost, 'w') do |f|
     end
   end
@@ -43,13 +44,13 @@ helpers do
   end
 
   def add_post_commit(name)
-    post_commit = File.join(SITE_ROOT, name, '.conf')
+    post_commit = File.join(SITE_ROOT, domain, '.conf')
     File.open(post_commit, 'w') do |f|
     end
   end
 
   def restart_app
-    post_commit = File.join(SITE_ROOT, name, '/tmp/restart.txt')
+    post_commit = File.join(SITE_ROOT, domain, '/tmp/restart.txt')
     File.open(post_commit, 'w') do |f|
     end
   end
@@ -66,19 +67,28 @@ get '/site/:id' do
 end
 
 get '/sites/create' do
-  puts "/sites/create invoked..."
-  puts "#{params[:site]}"
   site = Site.new(params[:site])
-  if site.save!
-    redirect "/site/#{site.id}"
-  else
+  if domain_taken?(site.domain)
     # TODO: display errors
     back
+  else
+    if site.save!
+      redirect "/site/#{site.id}"
+    else
+      # TODO: display errors
+      back
+    end
   end
 end
 
 get '/' do
   @sites = Site.all
   haml :index
+end
+
+private
+def domain_taken?(name)
+  site = Site.find_by_domain(name)
+  return !site.nil?
 end
 
