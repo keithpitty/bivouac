@@ -1,4 +1,4 @@
-require 'iircy'
+require 'bivouac'
 
 run Sinatra::Application
 
