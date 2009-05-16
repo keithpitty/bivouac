@@ -2,9 +2,11 @@
 %h1 Bivouac
 
 - @sites.each do |s|
-  = s.name
+  = "#{s.name} - #{s.directory}"
+  %a{:href => '/site/' + s.id.to_s, :title => 'Show'}
+    Show
   <br/>
 
 %a{:href => '/sites/new', :title => 'New Site'}
-  'New Site'
+  New Site
 

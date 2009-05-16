@@ -3,6 +3,8 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
+SITE_ROOT = '/var/www/bivouac/'
+
 ActiveRecord::Base.establish_connection(
    :adapter  => "mysql",
    :host     => "localhost",
@@ -20,6 +22,10 @@ end
 
 class Site < ActiveRecord::Base
   
+  def directory
+    File.join(SITE_ROOT, name)
+  end
+
 end
 
 helpers do
@@ -30,7 +36,10 @@ helpers do
     end
   end
 
-  def init_repo
+  def init_repo(site)
+    directory = site.directory
+    Dir.chdir(directory)
+    `git init`
   end
 
   def add_post_commit(name)
@@ -39,7 +48,7 @@ helpers do
     end
   end
 
-  def restart_server
+  def restart_app
     post_commit = File.join('/var/www/bivouac/', name, '/tmp/restart.txt')
     File.open(post_commit, 'w') do |f|
     end
@@ -49,6 +58,11 @@ end
 
 get '/sites/new' do
   haml :site_new
+end
+
+get '/site/:id' do
+  @site = Site.find params[:id]
+  haml :site
 end
 
 get '/sites/create' do
