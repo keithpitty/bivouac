@@ -1,0 +1,11 @@
+
+%h1= @site.name
+
+= @site.directory
+
+%a{:href => 'http://' + @site.hostname, :title => 'Show'}
+  Go
+%p
+  
+%a{:href => '/', :title => 'Home'}
+  Home
