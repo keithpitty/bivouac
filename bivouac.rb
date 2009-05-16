@@ -5,7 +5,7 @@ require 'active_record'
 require 'helpers'
 
 USER_NAME = 'bivouac'
-SITE_ROOT = "/#{ENV['HOME']}/apps"
+SITE_ROOT = "#{ENV['HOME']}/apps"
 
 ActiveRecord::Base.establish_connection(
   :adapter  => "mysql",
@@ -29,7 +29,7 @@ class Site < ActiveRecord::Base
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:~/app/" + domain + '.git'
+    "#{USER_NAME}@bivouac.com:~/apps/" + domain + '.git'
   end
 
   def domain_name
