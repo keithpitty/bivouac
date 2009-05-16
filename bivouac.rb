@@ -29,7 +29,7 @@ end
 helpers do
 
   def write_vhost_conf
-    vhost = File.join('/var/www/bivouac/', name, '.conf')
+    vhost = File.join(SITE_ROOT, name, '.conf')
     File.open(vhost, 'w') do |f|
     end
   end
@@ -41,15 +41,16 @@ helpers do
   end
 
   def add_post_commit(name)
-    post_commit = File.join('/var/www/bivouac/', name, '.conf')
+    post_commit = File.join('/var/www/bivouac/', name, 'post_commit_hook')
     File.open(post_commit, 'w') do |f|
+      f << HERE__
+      #!/usr/env ruby
+      HERE
     end
   end
 
-  def restart_app
-    post_commit = File.join('/var/www/bivouac/', name, '/tmp/restart.txt')
-    File.open(post_commit, 'w') do |f|
-    end
+  def restart_apache
+    # apachectl restart graceful?
   end
 
 end
@@ -68,7 +69,7 @@ get '/sites/create' do
   puts "#{params[:site]}"
   site = Site.new(params[:site])
   if site.save!
-    redirect "/"
+    redirect "/site/#{site.id}"
   else
     # TODO: display errors
     back
