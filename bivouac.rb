@@ -70,7 +70,7 @@ get '/sites/create' do
   puts "#{params[:site]}"
   site = Site.new(params[:site])
   if site.save!
-    redirect "/"
+    redirect "/site/#{site.id}"
   else
     # TODO: display errors
     back
