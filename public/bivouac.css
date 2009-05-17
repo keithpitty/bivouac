@@ -58,6 +58,7 @@ h1 {
   color: #14a22e;
   display: inline;
   float: left;
+  text-transform: lowercase;
 }
 h2 {
   font-size: .8em;
