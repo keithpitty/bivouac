@@ -3,7 +3,7 @@
     %p.errors
       = @site.error
   %label{:for => "name"}
-    Name your app
+    name your app
   %input{:id => "name", :type => "text", :name => "site[name]", :value => @site.name}
   %p#urlPreview
   %label{:for => "ssh_public_key"}
@@ -14,7 +14,7 @@
   %br
   %input{:id => "submit", :name => "submit", :type => "submit", :value => "Create", :class => "button"}
 
-%h3 Other bivvies
+%h3 other bivvies
 
 - @sites.each do |s|
   %a{:href => s.domain_name, :title => 'Show'}

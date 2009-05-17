@@ -1,18 +1,14 @@
 %p
-  Your bivvy has been created!
-
+  You're two small steps from having a drink at your bivvy!
 %p
-  Add this remote to your git repo with:
+  1. Add this remote git repo:
   .code
     !="git remote add bivouac #{@site.repo}"
 %p
-  Deploy your app with:
+  2. Deploy your app:
   .code
     git push bivouac master
 %p
-  Visit your app at:
+  3. Have a beer at your bivvy:
   %a{:href => @site.domain_name, :title => 'Show'}
     = @site.domain_name
-%p
-  %a{:href => '/', :title => 'Return to home'}
-    Return to home

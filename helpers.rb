@@ -15,6 +15,7 @@ helpers do
     Dir.chdir site.directory
     `git init`
     Dir.chdir current_dir
+    `ln -s #{site.directory} #{File.join(SITE_ROOT, site.name)}`
   end
 
   def add_post_commit(site)
