@@ -31,7 +31,7 @@ class Site < ActiveRecord::Base
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain + '.git'
+    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain
   end
 
   def domain_name
@@ -85,6 +85,6 @@ get '/sites/create' do
 end
 
 get '/' do
-  @sites = Site.all
+  @sites = Site.find(:all, :order => 'domain')
   haml :index
 end
