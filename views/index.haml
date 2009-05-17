@@ -1,29 +1,31 @@
-
-%h1 Bivouac
-
-%p Welcome campers!
-
 %form{:action => "/sites/create", :method => "post"}
   - if @site.error
-    %p#errors
+    %p.errors
       = @site.error
   %label{:for => "name"}
-    Site name:
+    name your app
   %input{:id => "name", :type => "text", :name => "site[name]", :value => @site.name}
-  %br
-  %br
+  %p#urlPreview
   %label{:for => "ssh_public_key"}
-    SSH public key
+    ssh key
   %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
     = @site.ssh_public_key
   %br
   %br
-  %input{:id => "submit", :name => "submit", :type => "submit", :value => "Save", :class => "button"}
+  %input{:id => "submit", :name => "submit", :type => "submit", :value => "Create", :class => "button"}
 
-%h3 Other bivvies
+%h3 other bivvies
 
 - @sites.each do |s|
-  %a{:href => s.name, :title => 'Show'}
+  %a{:href => s.domain_name, :title => 'Show'}
     = s.name
-  <br/>
+  %br
 
+:javascript
+  $(function () {
+    var urlPreview = $('#urlPreview');
+    $('#name').keyup(function(){
+      urlPreview.text('http://' + $(this).val() + '.bivouac.com');
+      console.log("Changed");
+    })
+  });

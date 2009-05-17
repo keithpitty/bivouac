@@ -15,6 +15,7 @@ helpers do
     Dir.chdir site.directory
     `git init`
     Dir.chdir current_dir
+    `ln -s #{site.directory} #{File.join(SITE_ROOT, site.name)}`
   end
 
   def add_post_commit(site)
@@ -32,6 +33,7 @@ git reset --hard;
 # run post_deploy here
 # post_deploy_hook should be created in site.directory/deploy
 
+cd #{site.directory} && git --git-dir=`pwd`/.git reset --hard;
 touch #{site.directory}/tmp/restart.txt;
 HERE
       f.chmod(0775)

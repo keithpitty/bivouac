@@ -17,7 +17,7 @@ html, body {
 }
 
 label {
-  margin-top: 1em;
+  margin: 1em 0 .1em 0;
   display: block;
 }
 input {
@@ -55,10 +55,19 @@ h1 {
   padding: 0;
   font-weight: normal;
   font-size: 3em;
+  line-height: 1em;
   color: #14a22e;
   display: inline;
   float: left;
   text-transform: lowercase;
+}
+p.slogan {
+  display: block;
+  text-transform: uppercase;
+  font-size: .8em;
+  line-height: 1.1em;
+  position: relative;
+  left: 5px;
 }
 h2 {
   font-size: .8em;
@@ -70,6 +79,7 @@ h2 {
   margin: 0;
   position: absolute;
   bottom: .7em;
+  color: #064412;
 }
 h3 {
   margin: 0;
@@ -79,17 +89,22 @@ a {
   text-decoration: none;
 }
 
-.footer {
-  
-}
+
 .code {
   background-color: red;
   font-size: .5em;
   font-family: courier;
 }
-code.preview {
+#urlPreview {
   margin-top: 5px;
-  height: 1.5em;
+  height: 1em;
+  font-size: .7em;
   display: block;
   background-color: transparent;
+}
+
+.errors {
+  padding: .5em 0 0 0;
+  color: #FC7B69;
+  font-size: .7em;
 }
