@@ -87,6 +87,13 @@ a {
   font-size: .5em;
   font-family: courier;
 }
+code.preview {
+  margin-top: 5px;
+  height: 1.5em;
+  display: block;
+  background-color: transparent;
+}
+
 .errors {
   color: #FC7B69;
   font-size: .7em;

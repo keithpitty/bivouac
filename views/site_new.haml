@@ -1,0 +1,17 @@
+%form{:action => "/sites/create"}
+  - if @error
+    %p#errors
+      = @error
+  %label{:for => "domain"}
+    Site name
+  %input{:id => "domain", :type => "text", :name => "site[domain]"}
+  %code.preview
+    http://your-site-name.com/
+  %label{:for => "ssh_public_key"}
+    SSH public key
+  %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
+  %input{:id => "submit", :name => "submit", :type => "submit", :value => "Save", :class => "button"}
+%p
+  %a{:href => '/', :title => 'Return to home'}
+    Return to home
+
