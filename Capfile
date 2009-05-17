@@ -5,7 +5,6 @@ set :use_sudo, false
 
 set :scm, :git
 set :repository,  "git://punk.railscamp.org/bivouac.git"
-set :branch, "production"
 set :deploy_via, :remote_cache
 
 set :application, "bivouac"
