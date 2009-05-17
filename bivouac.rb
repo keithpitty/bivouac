@@ -46,7 +46,7 @@ class Site < ActiveRecord::Base
   private
   def name_available?(name)
     site = Site.find_by_name(name)
-    @error = "Domain name already snaffled. Be more creative and try another!" unless site.nil?
+    @error =  conjure_error_message("Domain name already snaffled. Be more creative and try another!") unless site.nil?
     return site.nil?
   end
 
@@ -62,15 +62,26 @@ class Site < ActiveRecord::Base
         end
       end
     end
-    @error = "Sadly formed name. Try again you palooka!" unless valid
+    @error = conjure_error_message("Sadly formed name. Try again you palooka!") unless valid
     @error.nil?
   end
   
   def ssh_key_entered
     if ssh_public_key.nil? || ssh_public_key.length == 0
-      @error = "Wake up camper and enter your public ssh key!"
+      @error = conjure_error_message("Wake up camper and enter your public ssh key!")
     end
     @error.nil?
+  end
+
+  def conjure_error_message(error)
+    bogus_messages = [
+        "Watch out, wombats on the rampage!",
+        "Your billy is boiling over!",
+        "Strewth, your tent's blown over!",
+        "Crikey, Bindi Irwin's on the loose!",
+        "Those wallabies for your stew have escaped!"
+      ]
+    "#{bogus_messages[rand(bogus_messages.size - 1)]} #{error}"
   end
 end
 
