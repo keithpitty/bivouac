@@ -27,35 +27,48 @@ class Site < ActiveRecord::Base
   attr_reader :error
 
   def directory
-    File.join(SITE_ROOT, domain)
+    File.join(SITE_ROOT, name)
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain + '.bivouac.com'
+    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/#{name}.bivouac.com"
   end
 
   def domain_name
-    'http://' + domain + '.bivouac.com'
+    "http://#{name}.bivouac.com"
   end
 
   def valid?
     @error = nil
-    domain_available?(domain) && domain_valid?(domain)
+    name_valid?(name) && name_available?(name) && ssh_key_entered
   end
 
   private
-  def domain_available?(name)
-    site = Site.find_by_domain(name)
+  def name_available?(name)
+    site = Site.find_by_name(name)
     @error = "Domain name already snaffled. Be more creative and try another!" unless site.nil?
     return site.nil?
   end
 
-  def domain_valid?(name)
-    parts = name.split(".")
-    parts.each do |part|
-      if part.match(/^[a-z][a-z\d-]*[a-z\d]$/).nil?
-        @error = "Sadly formed domain name. Try again you palooka!"
+  def name_valid?(name)
+    valid = true
+    if name.nil? || name.length == 0 || name[0] == "-" || name[name.length - 1] == "-"
+      valid = false
+    else
+      parts = name.split('-')
+      parts.each do |part|
+        if part.match(/^[a-z][a-z\d-]*[a-z\d]$/).nil?
+          valid = false
+        end
       end
+    end
+    @error = "Sadly formed name. Try again you palooka!" unless valid
+    @error.nil?
+  end
+  
+  def ssh_key_entered
+    if ssh_public_key.nil? || ssh_public_key.length == 0
+      @error = "Wake up camper and enter your public ssh key!"
     end
     @error.nil?
   end
@@ -68,18 +81,18 @@ end
 
 get '/sites/create' do
   @site = Site.new(params[:site])
-  @site.domain = @site.domain.downcase
+  @site.name = @site.name.downcase
   if @site.valid? && @site.save!
     create_site(@site)
     redirect "/site/#{@site.id}"
   else
-    @sites = Site.find(:all, :order => 'domain')
+    @sites = Site.find(:all, :order => 'name')
     haml :index
   end
 end
 
 get '/' do
-  @sites = Site.find(:all, :order => 'domain')
+  @sites = Site.find(:all, :order => 'name')
   @site = Site.new
   haml :index
 end
