@@ -18,7 +18,7 @@ ActiveRecord::Base.establish_connection(
 unless ActiveRecord::Base.connection.tables.include?('sites')
   puts "Creating sites table..."
   ActiveRecord::Base.connection.create_table("sites") do |t|
-    t.string "domain"
+    t.string "name"
     t.text "ssh_public_key"
   end
 end
@@ -31,7 +31,7 @@ class Site < ActiveRecord::Base
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain
+    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain + '.bivouac.com'
   end
 
   def domain_name
