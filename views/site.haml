@@ -3,14 +3,12 @@
 
 %p
   Add this remote to your git repo with:
-  %pre
-    %code
-      !="git remote add bivouac #{@site.repo}"
+  .code
+    !="git remote add bivouac #{@site.repo}"
 %p
   Deploy your app with:
-  %pre
-    %code
-      git push bivouac master
+  .code
+    git push bivouac master
 %p
   Visit your app at:
   %a{:href => @site.domain_name, :title => 'Show'}

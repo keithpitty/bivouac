@@ -82,10 +82,8 @@ a {
 .footer {
   
 }
-pre {
-  
-}
-code {
+.code {
   background-color: red;
-  font-size: .75em;
+  font-size: .5em;
+  font-family: courier;
 }
