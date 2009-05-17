@@ -45,6 +45,7 @@ textarea {
   color: #dbf818;
   background-color: #064412;
   cursor: pointer;
+  border: 1px solid #dbf818;
 }
 #header {
   position: relative;
