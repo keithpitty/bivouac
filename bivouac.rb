@@ -65,7 +65,7 @@ get '/sites/create' do
 end
 
 get '/' do
-  @sites = Site.all
+  @sites = Site.find(:all, :order => 'domain')
   haml :index
 end
 

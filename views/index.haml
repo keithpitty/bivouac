@@ -17,6 +17,8 @@
   %br
   %input{:id => "submit", :name => "submit", :type => "submit", :value => "Save"}
 
+%h3 Other bivvies
+
 - @sites.each do |s|
   %a{:href => '/site/' + s.domain, :title => 'Show'}
     = s.domain
