@@ -74,8 +74,8 @@ class Site < ActiveRecord::Base
   end
 end
 
-get '/site/:id' do
-  @site = Site.find params[:id]
+get '/:name' do
+  @site = Site.find_by_name params[:name]
   haml :site
 end
 
@@ -84,7 +84,7 @@ post '/sites/create' do
   @site.name = @site.name.downcase
   if @site.valid? && @site.save!
     create_site(@site)
-    redirect "/site/#{@site.id}"
+    redirect "/#{@site.name}"
   else
     @sites = Site.find(:all, :order => 'name')
     haml :index
