@@ -24,6 +24,14 @@ helpers do
 #!/bin/sh
 cd #{site.directory};
 git reset --hard;
+# run initial_deploy_hook here unless /tmp/deployed exists
+# initial_deploy should be created in site.directory/deploy-hooks
+
+# config_gem file should be in site.directory/deploy-hooks
+
+# run post_deploy here
+# post_deploy_hook should be created in site.directory/deploy
+
 touch #{site.directory}/tmp/restart.txt;
 HERE
       f.chmod(0775)
