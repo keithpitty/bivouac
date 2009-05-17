@@ -70,9 +70,7 @@ get '/sites/create' do
   @site = Site.new(params[:site])
   @site.domain = @site.domain.downcase
   if @site.valid? && @site.save!
-    cat_key(@site)
-    init_repo(@site)
-    add_post_commit(@site)
+    create_site(@site)
     redirect "/site/#{@site.id}"
   else
     @sites = Site.find(:all, :order => 'domain')
