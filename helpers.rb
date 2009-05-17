@@ -22,7 +22,7 @@ helpers do
     File.open(post_commit, 'w') do |f|
       f.write <<-HERE
 #!/bin/sh
-cd #{site.directory} && git reset --hard;
+cd #{site.directory} && git --git-dir=`pwd`/.git reset --hard;
 touch #{site.directory}/tmp/restart.txt;
 HERE
       f.chmod(0775)
