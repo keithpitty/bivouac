@@ -23,7 +23,7 @@
 %h3 Other bivvies
 
 - @sites.each do |s|
-  %a{:href => '/site/' + s.id.to_s, :title => 'Show'}
+  %a{:href => s.name, :title => 'Show'}
     = s.name
   <br/>
 
