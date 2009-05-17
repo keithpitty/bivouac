@@ -1,11 +1,11 @@
-- @page_title = "Create a site"
+- @page_title = "Create a app"
 
 %form{:action => "/sites/create"}
   - if @error
     %p#errors
       = @error
   %label{:for => "domain"}
-    Name your site
+    Name your app
   %input{:id => "domain", :type => "text", :name => "site[domain]"}
   %code.preview
     http://your-site-name.com/ (js to come)
