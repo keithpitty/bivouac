@@ -92,7 +92,7 @@ a {
   font-size: .5em;
   font-family: courier;
 }
-code.preview {
+#urlPreview {
   margin-top: 5px;
   height: 1em;
   font-size: .7em;
