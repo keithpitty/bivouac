@@ -1,10 +1,20 @@
 
 %p
-  Your repo is at:
-  = @site.repo
+  Your bivvy has been created!
 
 %p
-  Your app is running at:
+  Add this repo to your git repo with:
+  %pre
+    %code
+      git remote add bivouac
+      = @site.repo
+%p
+  Deploy your app with:
+  %pre
+    %code
+      git push bivouac master
+%p
+  Visit your app at:
   %a{:href => @site.domain_name, :title => 'Show'}
     = @site.domain_name
   
