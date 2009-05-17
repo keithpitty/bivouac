@@ -17,7 +17,7 @@ html, body {
 }
 
 label {
-  margin-top: 1em;
+  margin: 1em 0 .1em 0;
   display: block;
 }
 input {
@@ -70,6 +70,7 @@ h2 {
   margin: 0;
   position: absolute;
   bottom: .7em;
+  color: #064412;
 }
 h3 {
   margin: 0;
@@ -93,7 +94,8 @@ a {
 }
 code.preview {
   margin-top: 5px;
-  height: 1.5em;
+  height: 1em;
+  font-size: .7em;
   display: block;
   background-color: transparent;
 }

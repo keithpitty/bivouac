@@ -3,10 +3,12 @@
     %p.errors
       = @site.error
   %label{:for => "name"}
-    App name (e.g. jumbuck):
+    Name your app:
   %input{:id => "name", :type => "text", :name => "site[name]", :value => @site.name}
   %p#urlPreview
     http://jumbuck.bivouac.com
+  %code.preview
+    http://your-site-name.com/ (js to come)
   %label{:for => "ssh_public_key"}
     ssh key:
   %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
