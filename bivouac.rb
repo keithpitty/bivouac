@@ -25,7 +25,7 @@ end
 
 class Site < ActiveRecord::Base
   attr_reader :error
-  
+
   def directory
     File.join(SITE_ROOT, domain)
   end
@@ -37,19 +37,19 @@ class Site < ActiveRecord::Base
   def domain_name
     'http://' + domain
   end
-  
+
   def valid?
     @error = nil
     domain_available?(domain) && domain_valid?(domain)
   end
-  
+
   private
   def domain_available?(name)
     site = Site.find_by_domain(name)
     @error = "Domain name already snaffled. Be more creative and try another!" unless site.nil?
     return site.nil?
   end
-  
+
   def domain_valid?(name)
     parts = name.split(".")
     parts.each do |part|
@@ -73,7 +73,7 @@ get '/sites/create' do
     cat_key(@site)
     init_repo(@site)
     add_post_commit(@site)
-    redirect "/site/#{site.id}"
+    redirect "/site/#{@site.id}"
   else
     @sites = Site.find(:all, :order => 'domain')
     haml :index
