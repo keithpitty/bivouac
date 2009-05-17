@@ -29,7 +29,7 @@ class Site < ActiveRecord::Base
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain + '.git'
+    "#{USER_NAME}@bivouac.com:/home/bivouac/apps/" + domain
   end
 
   def domain_name
