@@ -27,7 +27,7 @@ class Site < ActiveRecord::Base
   attr_reader :error
 
   def directory
-    File.join(SITE_ROOT, name)
+    File.join(SITE_ROOT, name) + '.bivouac.com'
   end
 
   def repo
