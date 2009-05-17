@@ -79,7 +79,7 @@ get '/site/:id' do
   haml :site
 end
 
-get '/sites/create' do
+post '/sites/create' do
   @site = Site.new(params[:site])
   @site.name = @site.name.downcase
   if @site.valid? && @site.save!
