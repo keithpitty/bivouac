@@ -3,7 +3,7 @@
 
 %p Welcome campers!
 
-%form{:action => "/sites/create"}
+%form{:action => "/sites/create", :method => "post"}
   - if @site.error
     %p#errors
       = @site.error
