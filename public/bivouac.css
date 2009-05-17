@@ -89,3 +89,9 @@ code {
   background-color: red;
   font-size: .75em;
 }
+code.preview {
+  margin-top: 5px;
+  height: 1.5em;
+  display: block;
+  background-color: transparent;
+}
