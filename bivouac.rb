@@ -54,15 +54,11 @@ class Site < ActiveRecord::Base
     parts = name.split(".")
     parts.each do |part|
       if part.match(/^[a-z][a-z\d-]*[a-z\d]$/).nil?
-        @error = "Badly formed domain name. Try again you palooka!"
+        @error = "Sadly formed domain name. Try again you palooka!"
       end
     end
     @error.nil?
   end
-end
-
-get '/sites/new' do
-  haml :site_new
 end
 
 get '/site/:id' do
@@ -71,18 +67,21 @@ get '/site/:id' do
 end
 
 get '/sites/create' do
-  site = Site.new(params[:site])
-  site.domain = site.domain.downcase
-  if site.valid? && site.save!
-    create_site(site)
-    redirect "/site/#{site.id}"
+  @site = Site.new(params[:site])
+  @site.domain = @site.domain.downcase
+  if @site.valid? && @site.save!
+    cat_key(@site)
+    init_repo(@site)
+    add_post_commit(@site)
+    redirect "/site/#{@site.id}"
   else
-    @error = site.error
-    haml :site_new
+    @sites = Site.find(:all, :order => 'domain')
+    haml :index
   end
 end
 
 get '/' do
   @sites = Site.find(:all, :order => 'domain')
+  @site = Site.new
   haml :index
 end
