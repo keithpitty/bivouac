@@ -1,12 +1,14 @@
+- @page_title = "Create a site"
+
 %form{:action => "/sites/create"}
   - if @error
     %p#errors
       = @error
   %label{:for => "domain"}
-    Site name
+    Name your site
   %input{:id => "domain", :type => "text", :name => "site[domain]"}
   %code.preview
-    http://your-site-name.com/
+    http://your-site-name.com/ (js to come)
   %label{:for => "ssh_public_key"}
     SSH public key
   %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
