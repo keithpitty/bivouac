@@ -17,9 +17,10 @@
 %h3 other bivvies
 
 - @sites.each do |s|
-  %a{:href => s.domain_name, :title => 'Show'}
+  %a{:href => s.domain_name}
     = s.name
-  %br
+  %a.bivvydetails{:href => s.name}
+    (details)
 
 :javascript
   $(function () {
