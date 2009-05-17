@@ -6,7 +6,7 @@
     App name (e.g. jumbuck):
   %input{:id => "name", :type => "text", :name => "site[name]", :value => @site.name}
   %p#urlPreview
-    http://jumpbuck.bivouac.com
+    http://jumbuck.bivouac.com
   %label{:for => "ssh_public_key"}
     ssh key:
   %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
@@ -18,7 +18,7 @@
 %h3 Other bivvies
 
 - @sites.each do |s|
-  %a{:href => "/#{s.name}", :title => 'Show'}
+  %a{:href => s.domain_name, :title => 'Show'}
     = s.name
   <br/>
 
