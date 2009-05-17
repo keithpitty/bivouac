@@ -87,3 +87,6 @@ a {
   font-size: .5em;
   font-family: courier;
 }
+.errors {
+  color: #FC7B69;
+}

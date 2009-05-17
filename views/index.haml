@@ -5,7 +5,7 @@
 
 %form{:action => "/sites/create", :method => "post"}
   - if @site.error
-    %p#errors
+    %p.errors
       = @site.error
   %label{:for => "name"}
     Site name:
