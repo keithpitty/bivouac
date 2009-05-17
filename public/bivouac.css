@@ -61,6 +61,12 @@ h1 {
   float: left;
   text-transform: lowercase;
 }
+#header a h1 {
+  color: #14a22e;
+}
+#header a p.slogan {
+  color: #fff;
+}
 p.slogan {
   display: block;
   text-transform: uppercase;
