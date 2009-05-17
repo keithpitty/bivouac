@@ -5,7 +5,7 @@
 
 %form{:action => "/sites/create", :method => "post"}
   - if @site.error
-    %p#errors
+    %p.errors
       = @site.error
   %label{:for => "name"}
     Site name:
@@ -23,7 +23,7 @@
 %h3 Other bivvies
 
 - @sites.each do |s|
-  %a{:href => s.name, :title => 'Show'}
+  %a{:href => "/#{s.name}", :title => 'Show'}
     = s.name
   <br/>
 

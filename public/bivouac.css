@@ -93,3 +93,8 @@ code.preview {
   display: block;
   background-color: transparent;
 }
+
+.errors {
+  color: #FC7B69;
+  font-size: .7em;
+}
