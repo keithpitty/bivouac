@@ -14,6 +14,8 @@ helpers do
     File.open(post_commit, 'w') do |f|
       f.write <<-HERE
 #!/bin/sh
+cd #{site.directory};
+git reset --hard
 touch #{site.directory}/tmp/restart.txt;
 HERE
     end
