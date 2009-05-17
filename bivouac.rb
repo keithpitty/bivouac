@@ -24,6 +24,8 @@ unless ActiveRecord::Base.connection.tables.include?('sites')
 end
 
 class Site < ActiveRecord::Base
+  attr_reader :error
+
   def directory
     File.join(SITE_ROOT, domain)
   end
@@ -34,6 +36,28 @@ class Site < ActiveRecord::Base
 
   def domain_name
     'http://' + domain
+  end
+
+  def valid?
+    @error = nil
+    domain_available?(domain) && domain_valid?(domain)
+  end
+
+  private
+  def domain_available?(name)
+    site = Site.find_by_domain(name)
+    @error = "Domain name already snaffled. Be more creative and try another!" unless site.nil?
+    return site.nil?
+  end
+
+  def domain_valid?(name)
+    parts = name.split(".")
+    parts.each do |part|
+      if part.match(/^[a-z][a-z\d-]*[a-z\d]$/).nil?
+        @error = "Badly formed domain name. Try again you palooka!"
+      end
+    end
+    @error.nil?
   end
 end
 
@@ -48,19 +72,13 @@ end
 
 get '/sites/create' do
   site = Site.new(params[:site])
-  if domain_taken?(site.domain)
-    @error = "Domain name already snaffled. Be more creative and try another!"
-    haml :site_new
+  site.domain = site.domain.downcase
+  if site.valid? && site.save!
+    create_site(site)
+    redirect "/site/#{site.id}"
   else
-    if site.save!
-      cat_key(site)
-      init_repo(site)
-      add_post_commit(site)
-      redirect "/site/#{site.id}"
-    else
-      @error = "Couldn't save... something fucked up. Try again!"
-      haml :site_new
-    end
+    @error = site.error
+    haml :site_new
   end
 end
 
@@ -68,11 +86,3 @@ get '/' do
   @sites = Site.find(:all, :order => 'domain')
   haml :index
 end
-
-private
-
-def domain_taken?(name)
-  site = Site.find_by_domain(name)
-  return !site.nil?
-end
-
