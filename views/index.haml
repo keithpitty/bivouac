@@ -25,6 +25,9 @@
 :javascript
   $(function () {
     var urlPreview = $('#urlPreview');
+    if ($('#name').val.length > 0) {
+      urlPreview.text('http://' + $('#name').val() + '.bivouac.com');
+    }
     $('#name').keyup(function(){
       urlPreview.text('http://' + $(this).val() + '.bivouac.com');
       console.log("Changed");
