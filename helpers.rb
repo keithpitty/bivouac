@@ -18,7 +18,7 @@ helpers do
   end
 
   def add_post_commit(site)
-    post_commit = File.join(site.directory, '.git/hooks/post-commit')
+    post_commit = File.join(site.directory, '.git/hooks/post-receive')
     File.open(post_commit, 'w') do |f|
       f.write <<-HERE
 #!/bin/sh
