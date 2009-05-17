@@ -46,7 +46,7 @@ class Site < ActiveRecord::Base
   private
   def name_available?(name)
     site = Site.find_by_name(name)
-    @error =  conjure_error_message("Domain name already snaffled. Be more creative and try another!") unless site.nil?
+    @error =  conjure_error_message("App name already snaffled. Be more creative and try another!") unless site.nil?
     return site.nil?
   end
 
@@ -82,7 +82,14 @@ class Site < ActiveRecord::Base
         "Those wallabies for your stew have escaped!",
         "Blimey, the beer has run out!",
         "Shiver me timbers, the fire has gone out!",
-        "Fuck me dead, the werewolves are coming!"
+        "Look out, it's Dylan in his gorilla suit!",
+        "It's dark, it's spooky and the strangler figs are about!",
+        "Warning camper, Myles is about to pontificate!",
+        "Shit, the server is down!",
+        "Careful camper, that fire is hot!",
+        "So you think you're a guitar hero?",
+        "Bloody bananajour is buggered again!",
+        "Careful villager, the werewolves are coming!"
       ]
     "#{bogus_messages[rand(bogus_messages.size - 1)]} #{error}"
   end
