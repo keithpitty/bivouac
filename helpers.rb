@@ -18,6 +18,7 @@ cd #{site.directory};
 git reset --hard
 touch #{site.directory}/tmp/restart.txt;
 HERE
+      f.chmod(0775)
     end
   end
   
