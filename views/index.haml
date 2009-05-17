@@ -6,7 +6,6 @@
     App name (e.g. jumbuck):
   %input{:id => "name", :type => "text", :name => "site[name]", :value => @site.name}
   %p#urlPreview
-    http://jumpbuck.bivouac.com
   %label{:for => "ssh_public_key"}
     ssh key:
   %textarea{:id => "ssh_public_key", :cols => "40", :rows => "5", :name => "site[ssh_public_key]"}
@@ -24,4 +23,9 @@
 
 :javascript
   $(function () {
+    var urlPreview = $('#urlPreview');
+    $('#name').keyup(function(){
+      urlPreview.text('http://' + $(this).val() + '.bivouac.com');
+      console.log("Changed");
+    })
   });
