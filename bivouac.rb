@@ -79,7 +79,10 @@ class Site < ActiveRecord::Base
         "Your billy is boiling over!",
         "Strewth, your tent's blown over!",
         "Crikey, Bindi Irwin's on the loose!",
-        "Those wallabies for your stew have escaped!"
+        "Those wallabies for your stew have escaped!",
+        "Blimey, the beer has run out!",
+        "Shiver me timbers, the fire has gone out!",
+        "Fuck me dead, the werewolves are coming!"
       ]
     "#{bogus_messages[rand(bogus_messages.size - 1)]} #{error}"
   end
