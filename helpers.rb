@@ -10,7 +10,7 @@ helpers do
 
   def init_repo(site)
     FileUtils.mkdir_p File.join(site.directory, 'tmp')
-    `touch #{File.join(site.directory, 'tmp', 'restart.txt')}"`
+    FileUtils.mkdir_p File.join(site.directory, 'public')
     current_dir = Dir.getwd
     Dir.chdir site.directory
     `git init`
@@ -25,7 +25,8 @@ helpers do
 cd #{site.directory};
 git reset --hard;
 touch #{site.directory}/tmp/restart.txt;
-      HERE
+HERE
+      f.chmod(0775)
     end
   end
 
