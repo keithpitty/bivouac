@@ -35,7 +35,7 @@ class Site < ActiveRecord::Base
   end
 
   def domain_name
-    'http://' + domain
+    'http://' + domain + '.bivouac.com'
   end
 
   def valid?
