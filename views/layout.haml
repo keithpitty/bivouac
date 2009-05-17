@@ -1,0 +1,15 @@
+%html
+  %head
+
+    %link{:href => "/bivouac.css", :type => "text/css", :rel => "stylesheet"}
+    %title Bivouac
+
+  %body
+    #container
+      #header
+        %h1 
+          %a{:href=> '/', :title => 'Home'}
+            Bivouac 
+        %h2 New Site
+      = yield
+

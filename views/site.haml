@@ -1,4 +1,3 @@
-
 %p
   Your bivvy has been created!
 
@@ -6,7 +5,7 @@
   Add this remote to your git repo with:
   %pre
     %code
-      != "git remote add bivouac #{@site.repo}"
+      !="git remote add bivouac #{@site.repo}"
 %p
   Deploy your app with:
   %pre
@@ -16,7 +15,6 @@
   Visit your app at:
   %a{:href => @site.domain_name, :title => 'Show'}
     = @site.domain_name
-  
 %p
-  %a{:href => '/', :title => 'Home'}
-    Home
+  %a{:href => '/', :title => 'Return to home'}
+    Return to home
