@@ -53,9 +53,7 @@ get '/sites/create' do
     haml :site_new
   else
     if site.save!
-      cat_key(site)
-      init_repo(site)
-      add_post_commit(site)
+      create_site(site)
       redirect "/site/#{site.id}"
     else
       @error = "Couldn't save... something fucked up. Try again!"
