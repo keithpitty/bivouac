@@ -28,15 +28,15 @@ class Site < ActiveRecord::Base
   attr_reader :error
 
   def directory
-    File.join(SITE_ROOT, name) + '.bivouac.com'
+    File.join(SITE_ROOT, name) + '.bivou.ac'
   end
 
   def repo
-    "#{USER_NAME}@bivouac.com:~/apps/#{name}"
+    "#{USER_NAME}@bivou.ac:~/apps/#{name}"
   end
 
   def domain_name
-    "http://#{name}.bivouac.com"
+    "http://#{name}.bivou.ac"
   end
 
   def valid?

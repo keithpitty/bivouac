@@ -19,17 +19,17 @@
 - @sites.each do |s|
   %a{:href => s.domain_name}
     = s.name
-  %a.bivvydetails{:href => s.name}
+  %a.bivvydetails{:href => "/#{s.name}"}
     = "(#{s.name} details)"
 
 :javascript
   $(function () {
     var urlPreview = $('#urlPreview');
-    if ($('#name').val.length > 0) {
-      urlPreview.text('http://' + $('#name').val() + '.bivouac.com');
+    if ($('#name').val().length > 0) {
+      urlPreview.text('http://' + $('#name').val() + '.bivou.ac');
     }
     $('#name').keyup(function(){
-      urlPreview.text('http://' + $(this).val() + '.bivouac.com');
+      urlPreview.text('http://' + $(this).val() + '.bivou.ac');
       console.log("Changed");
     })
   });
