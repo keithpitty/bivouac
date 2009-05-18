@@ -4,6 +4,7 @@ require 'haml'
 require 'active_record'
 require 'helpers'
 
+#TODO use set -look up sinatra docs
 USER_NAME = 'bivouac'
 SITE_ROOT = "#{ENV['HOME']}/apps"
 

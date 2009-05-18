@@ -29,17 +29,19 @@ git reset --hard;
 # run initial_deploy_hook here unless /tmp/deployed exists
 # initial_deploy should be created in site.directory/deploy-hooks
 
-if [-x deploy-hooks/initial-deploy && -f tmp/never-deployed]
-  deploy-hooks/initial-deploy
-  rm #{site.directory}/tmp/never-deployed
+if [ -x deploy-hooks/initial-deploy -a -f tmp/never-deployed ]
+then
+  deploy-hooks/initial-deploy;
+  rm #{site.directory}/tmp/never-deployed;
 fi
 
 # config_gem file should be in site.directory/deploy-hooks
 
 # post_deploy_hook should be created in site.directory/deploy
 
-if [-x deploy-hooks/initial-deploy]
-  deploy-hooks/initial-deploy
+if [ -x deploy-hooks/post-receive ]
+then
+  deploy-hooks/post-receive;
 fi
 
 cd #{site.directory} && git --git-dir=`pwd`/.git reset --hard;
