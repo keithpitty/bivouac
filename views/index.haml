@@ -19,7 +19,7 @@
 - @sites.each do |s|
   %a{:href => s.domain_name}
     = s.name
-  %a.bivvydetails{:href => s.name}
+  %a.bivvydetails{:href => "/#{s.name}"}
     = "(#{s.name} details)"
 
 :javascript
