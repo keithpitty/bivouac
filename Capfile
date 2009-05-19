@@ -10,8 +10,8 @@ set :deploy_via, :remote_cache
 set :application, "bivouac"
 set :deploy_to, "/home/bivouac"
 
-role :app, "bivouac.com"
-role :web, "bivouac.com"
+role :app, "bivou.ac"
+role :web, "bivou.ac"
 
 ssh_options[:keys] = %w(~/.ssh/id_rsa ~/.ssh/id_dsa)
 ssh_options[:forward_agent] = true
