@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+# sample script for running rake db:create the first time your app is deployed
+# rename to initial_deploy to make it run
+
+`rake db:create RAILS_ENV=production`

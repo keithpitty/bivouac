@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+# sample script for running rake db:migrations whenever your app is deployed
+# rename to post_deploy to make it run
+
+`rake db:migrate RAILS_ENV=production`
