@@ -21,3 +21,9 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt"
   end
 end
+
+task :after_deploy do
+  run "ln -s #{shared_path}/connection.rb #{release_path}/connection.rb"
+end
+
+

@@ -4,18 +4,13 @@ require 'sinatra/authorization'
 require 'haml'
 require 'active_record'
 require 'helpers'
+require 'connection'
 
 #TODO use set -look up sinatra docs
 USER_NAME = 'bivouac'
 SITE_ROOT = "#{ENV['HOME']}/apps"
 
-ActiveRecord::Base.establish_connection(
-  :adapter  => "mysql",
-  :host     => "localhost",
-  :username => "root",
-  :password => "",
-  :database => "bivouac"
-)
+connect_to_db
 
 unless ActiveRecord::Base.connection.tables.include?('sites')
   puts "Creating sites table..."
