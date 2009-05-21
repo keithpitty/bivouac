@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/authorization'
 require 'haml'
 require 'active_record'
 require 'helpers'
@@ -97,11 +98,13 @@ class Site < ActiveRecord::Base
 end
 
 get '/:name' do
+  login_required
   @site = Site.find_by_name params[:name]
   haml :site
 end
 
 post '/sites/create' do
+  login_required
   @site = Site.new(params[:site])
   @site.name = @site.name.downcase
   if @site.valid? && @site.save!

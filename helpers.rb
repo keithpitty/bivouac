@@ -2,6 +2,8 @@ require 'fileutils'
 
 helpers do
 
+  include Sinatra::Authorization
+
   def create_site(site)
     cat_key(site)
     init_repo(site)
@@ -46,7 +48,7 @@ fi
 
 cd #{site.directory} && git --git-dir=`pwd`/.git reset --hard;
 touch #{site.directory}/tmp/restart.txt;
-HERE
+      HERE
       f.chmod(0775)
     end
   end
@@ -55,6 +57,14 @@ HERE
     File.open("#{ENV['HOME']}/.ssh/authorized_keys", 'a') do |f|
       f << site.ssh_public_key
     end
+  end
+
+  def authorization_realm
+    'bivou.ac'
+  end
+
+  def authorize(login, password)
+    login == "bivvy" && password == "whackers"
   end
 
 end
